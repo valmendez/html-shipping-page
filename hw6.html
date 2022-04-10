@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Homework 6</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  var homeAddress = ["Wanjun Hu", "504 College Dr.", "Albany GA", "31705", "United States", "229-500-2283"];
+  var hubAddress  = ["Amazon hub Counter-Belk", "1181 N St. Augustine Road", "Valdosta GA", "31602", "United States", "&nbsp;"];
+  var countryList = ["China", "Canada",	"Japan", "German", "France", "Italy", "Roman", "Greece", "Netherland", "Iceland", "UK", "Poland", "Turkey", "Iran", "Iraq", "Egypt", "Russia", "Georgia", "India", "Pakistan", "Nigeria", "South Africa", "Uganda", "Zimbabuwei", "Australia", "New Zealand", "Korea", "Vietnam", "United States"];
+
+  var stateList   = ["Alabama", "Arizona", "California", "Georgia", "Texas"];
+
+  var newAddress  = {name: "TBA", adddress1: "street", address2: "apt", city: "city", state: "state", zipcode: "zipcode", phone: "phone", country: "country"};
+
+
+  $(document).ready(function(){
+     homeAddress.forEach(function(value, index, array){
+     		$("#homeDiv").append("<p>" + value +"</p>");
+     });
+
+     hubAddress.forEach(function(value, index, array){
+     	    $("#hubDiv").append("<p>" + value + "</p>");
+     });
+
+     countryList.forEach(function(value, index, array){
+            if(value == "United States"){
+            	    $("#newCountry").append("<option value=' "+value +" ' selected> " + value +"</option>");
+            } else  $("#newCountry").append("<option value=' "+value +" '> " + value +"</option>");
+     });
+
+     stateList.forEach(function(value, index, array){
+            if(value == "Georgia"){
+                    $("#newState").append("<option value=' "+value +" ' selected> " + value +"</option>");
+            } else  $("#newState").append("<option value=' "+value +" '> " + value +"</option>");
+     });
+
+     $.fn.deliveryAddress0=function(){
+            $("#homeDiv").children().css({"color": "green"});
+            $("#hubDiv").children().css({"color" : "lightgray"});
+            $(".homeED").css({"backgroundColor": "#0275d8"});
+            $(".hubED").css({"backgroundColor": "lightgray"});
+     };
+
+     $("#homeAddressButton").click(function(){
+	    $(this).deliveryAddress0();
+     });
+
+      $("#hubAddressButton").click(function(){
+	    (function (){
+            $("#homeDiv").children().css({"color": "lightgray"});
+            $("#hubDiv").children().css({"color" : "green"});
+            $(".homeED").css({"backgroundColor": "lightgray"});
+            $(".hubED").css({"backgroundColor": "#0275d8"});
+            }) ();
+     });
+
+     $("#newAddressButton").click(function(){
+           var formElements=$("#newAddressForm").find("input, select")    
+           var keys=Object.keys(newAddress);
+           formElements.each(function (index, element){
+                     newAddress[keys[index]]=this.value;
+                   
+           });
+
+           $("#homeDiv").empty();
+           for(key in newAddress)
+                   $("#homeDiv").append("<p>"+newAddress[key]+"</p>");
+
+           $(this).deliveryAddress0();
+     });
+
+  });
+    
+  
+</script>
+</head>
+
+
+
+<body>
+<div class="jumbotron display-6" style="background-color: white; padding: 0px; margin: 0px; padding-left: 10px;">
+  <img src="logo_checkout.jpg" style="position: fixed; left: 5px; top: 0px; padding-bottom: 5px; width: 30%; height: 7vw;" alt="logo">
+<br>
+<br>
+<br>
+<br>
+  <p>Select a shipping address</p> 
+  <p>Is the address you'd like to use displayed below? If so, click the corresponding "Deliver to this address" button. Or you can enter a new shipping address.</p>
+</div>
+
+<hr>
+<div class="container">
+ <h3 class="bg-light text-primary"><u>Select a shipping address</u></h3>
+  <div class="row">
+    <div class="col-sm-4">
+      <div id="homeDiv">
+
+      </div>
+      
+
+      <p> Add delivery instructions</p>
+      <button type="button" class="btn btn-primary" id="homeAddressButton">Deliver to this address</button> 
+<br>  
+   
+   <div class="btn-group" >
+    <button type="button" class="btn btn-primary homeED">Edit</button>
+   </div>
+   <div class="btn-group" >
+    <button type="button" class="btn btn-primary homeED">Delete</button>
+   </div>
+
+
+    </div>
+    <div class="col-sm-4">
+    	<div id="hubDiv"> 
+
+        </div>
+     <p> Add delivery instructions</p>
+      <button type="button" class="btn btn-primary" id="hubAddressButton">Deliver to this address</button>
+<br>
+   <div class="btn-group">
+    <button type="button" class="btn btn-primary hubED">Edit</button>
+   </div>
+   <div class="btn-group">
+    <button type="button" class="btn btn-primary hubED">Delete</button>
+   </div>
+
+
+    </div>
+    <div class="col-sm-4">  
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<div class="container">
+ <h4> Add a new address</h4>
+ <form id="newAddressForm">
+
+    <div class="form-group">
+      <label for="newUserName">Name:</label>
+      <input type="text" class="form-control" id="newUserName" placeholder="firstName Lastname" name="newUserName" required>
+    </div>
+
+    <div class="form-group">
+       <label for="newUserAddress">Street address</label>
+       <input type="text" class="form-control" id="newUserAddressL1" placeholder="Street address line 1" name="newUserAddressL1" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="newUserName">Address line 2</label>
+        <input type="text" class="form-control" id="newUserAddressL2" placeholder="Apt, suite, unit, building, floor, etc" name="newUserAddressL2">
+    </div>
+
+    <div class="form-row">
+         <div class="col">
+            <label for="newCity">City</label>
+                    <input type="text" class="form-control" id="newCity" placeholder="Enter city name" name="newCity">
+    </div>
+
+    <div class="col">
+         <div class="form-group">
+            <label for="newState">State</label>
+            <select class="form-control" id="newState" name="newState">
+            <!-- ==============================================================
+               to be added by JQuery from array stateList using for forEach loop
+                 ============================================================== -->
+            </select>
+          </div>
+     </div>
+
+       <div class="col">
+            <label for="newZipcode">Zip Code</label>
+           <input type="number" class="form-control" placeholder="Enter your zipcode" name="newZipcode" id="newZipcode">
+       </div>
+
+     </div>
+
+       <div class="form-group">
+          <label for="phone">Phone Number( <small>Format 123-453-2678</small>)</label><br>
+          <input type="tel" id="newPhone" name="newPhone" placeholder="123-453-2678" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+         
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+       </div>
+
+       <div class="form-group">
+         <label for="sel1">Country</label>
+         <select class="form-control" id="newCountry" name="newCountry">
+
+                <!-- ==============================================================
+                  to be added by jQuery from array stateList using for forEach loop
+                     ============================================================== -->
+          </select>
+        </div>
+
+    <button type="button" class="btn btn-primary" id="newAddressButton">Use this new address</button>
+  </form>
+</div>
+
+
+
+</body>
+</html>
